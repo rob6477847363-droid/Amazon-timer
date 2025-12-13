@@ -7,12 +7,12 @@
     html, body {
         margin: 0;
         padding: 0;
-        height: 100dvh; /* Use dynamic viewport height to truly fill screen on mobile */
+        height: 100dvh;
         overflow: hidden;
         background-color: black;
     }
     body {
-        color: #555; /* Dimmed gray text to look like an always-on display */
+        color: #555;
         font-family: 'Lucida Console', monospace;
         text-align: center;
         display: flex;
@@ -25,7 +25,7 @@
         font-weight: bold;
         line-height: 1.1;
         margin-bottom: 8vh;
-        color: #777; /* Slightly brighter but still dim */
+        color: #444; /* same darkness as note */
     }
     #countdown-text {
         font-size: 8vw;
@@ -35,12 +35,12 @@
     }
     #display-note {
         font-size: 5vw;
-        color: #444; /* Dimmest text */
+        color: #444;
         max-width: 90%;
         padding: 0 10px;
     }
     .red-flash {
-        color: #aa3333 !important; /* Dimmed red instead of full bright */
+        color: #552222 !important;
     }
 </style>
 </head>
@@ -54,6 +54,7 @@
         { start: "07:00", end: "07:30", note: "Tap 7:25-7:30 (7:35 latest)", noteUntil: "07:40" },
         { start: "07:40", end: "10:00", note: "10 minute break by 10am", noteUntil: "10:10" },
         { start: "10:10", end: "10:56", note: "Last scan 10:56-10:59", noteUntil: "11:05" },
+        { start: "11:00", end: "11:30", note: "Return to work", noteUntil: "11:35" },
         { start: "11:05", end: "13:30", note: "10 minute break by 1:30", noteUntil: "13:40" },
         { start: "13:40", end: "14:26", note: "Last scan 2:26-2:29 (tap 2:30-2:32)", noteUntil: "14:35" },
         { start: "14:35", end: "15:00", note: "Return to work", noteUntil: "15:05" },
@@ -152,10 +153,11 @@
 
     function startTimer() {
         updateDisplay();
-        setInterval(updateDisplay, 1000); // 1 second is enough for AOD feel
+        setInterval(updateDisplay, 1000);
     }
 
     window.onload = startTimer;
 </script>
+
 </body>
 </html>
