@@ -12,7 +12,7 @@
         background-color: black;
     }
     body {
-        color: #555;
+        color: #444; /* single shade for all text */
         font-family: 'Lucida Console', monospace;
         text-align: center;
         display: flex;
@@ -25,22 +25,27 @@
         font-weight: bold;
         line-height: 1.1;
         margin-bottom: 8vh;
-        color: #444; /* same darkness as note */
+        /* no own color: inherits #444 */
     }
     #countdown-text {
         font-size: 8vw;
         font-weight: normal;
         margin-bottom: 8vh;
-        color: #555;
+        /* inherits #444 */
     }
     #display-note {
         font-size: 5vw;
-        color: #444;
         max-width: 90%;
         padding: 0 10px;
+        white-space: pre-wrap;
+        /* inherits #444 */
     }
     .red-flash {
         color: #552222 !important;
+    }
+    .note-extra::before {
+        content: "\A";
+        white-space: pre;
     }
 </style>
 </head>
@@ -51,15 +56,48 @@
 
 <script>
     const schedule = [
-        { start: "07:00", end: "07:30", note: "Tap 7:25-7:30 (7:35 latest)", noteUntil: "07:40" },
-        { start: "07:40", end: "10:00", note: "10 minute break by 10am", noteUntil: "10:10" },
-        { start: "10:10", end: "10:56", note: "Last scan 10:56-10:59", noteUntil: "11:05" },
-        { start: "11:00", end: "11:30", note: "Return to work", noteUntil: "11:35" },
-        { start: "11:05", end: "13:30", note: "10 minute break by 1:30", noteUntil: "13:40" },
-        { start: "13:40", end: "14:26", note: "Last scan 2:26-2:29 (tap 2:30-2:32)", noteUntil: "14:35" },
-        { start: "14:35", end: "15:00", note: "Return to work", noteUntil: "15:05" },
-        { start: "15:05", end: "17:00", note: "10 minute break by 5:00pm", noteUntil: "17:10" },
-        { start: "17:10", end: "17:56", note: "Last scan 5:56-5:59 (tap 5:57-6:00)", noteUntil: "18:05" }
+        { 
+            start: "07:00",
+            end: "07:30",
+            note: "Punch In 7:25-7:30",
+            noteExtra: "7:35 latest",
+            noteUntil: "07:40"
+        },
+        { 
+            start: "07:40",
+            end: "10:56",
+            note: "Last scan 10:56-10:59",
+            noteExtra: "",
+            noteUntil: "11:05"
+        },
+        { 
+            start: "11:00",
+            end: "11:30",
+            note: "Return to work",
+            noteExtra: "",
+            noteUntil: "11:35"
+        },
+        { 
+            start: "11:35",
+            end: "14:26",
+            note: "Last scan 2:26-2:29",
+            noteExtra: "Punch Out 2:30-2:32",
+            noteUntil: "14:35"
+        },
+        { 
+            start: "14:35",
+            end: "15:00",
+            note: "Return to work",
+            noteExtra: "",
+            noteUntil: "15:05"
+        },
+        { 
+            start: "15:05",
+            end: "17:56",
+            note: "Last scan 5:56-5:59",
+            noteExtra: "Punch Out 5:57-6:00",
+            noteUntil: "18:05"
+        }
     ];
 
     const currentTimeElement = document.getElementById('current-time');
@@ -104,6 +142,14 @@
         }
     }
 
+    function renderNote(segment) {
+        if (segment.noteExtra && segment.noteExtra.trim() !== "") {
+            noteElement.innerHTML = `${segment.note}<span class="note-extra">${segment.noteExtra}</span>`;
+        } else {
+            noteElement.textContent = segment.note;
+        }
+    }
+
     function updateDisplay() {
         const now = new Date();
         updateCurrentTime();
@@ -123,7 +169,7 @@
         if (currentSegment) {
             const countdownTargetTime = createTodayTime(currentSegment.end);
             const noteUntilTime = createTodayTime(currentSegment.noteUntil);
-            noteElement.textContent = currentSegment.note;
+            renderNote(currentSegment);
 
             if (now < countdownTargetTime) {
                 const distance = countdownTargetTime - now;
