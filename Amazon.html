@@ -12,7 +12,8 @@
         background-color: black;
     }
     body {
-        color: #444; /* single shade for all text */
+        /* darker gray text for all elements */
+        color: #222222;
         font-family: 'Lucida Console', monospace;
         text-align: center;
         display: flex;
@@ -28,17 +29,19 @@
     }
     #countdown-text {
         font-size: 8vw;
-        font-weight: normal;
+        font-weight: 700;      /* thicker countdown */
         margin-bottom: 8vh;
     }
     #display-note {
         font-size: 5vw;
+        font-weight: 600;      /* thicker note text */
         max-width: 90%;
         padding: 0 10px;
         white-space: pre-wrap;
     }
     .red-flash {
-        color: #552222 !important;
+        /* very dark red for subtle alert */
+        color: #331111 !important;
     }
     .note-extra::before {
         content: "\A";
