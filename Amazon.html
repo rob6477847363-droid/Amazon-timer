@@ -12,8 +12,7 @@
         background-color: black;
     }
     body {
-        /* darker gray text for all elements */
-        color: #222222;
+        color: #444444; /* timers + notes */
         font-family: 'Lucida Console', monospace;
         text-align: center;
         display: flex;
@@ -26,21 +25,23 @@
         font-weight: bold;
         line-height: 1.1;
         margin-bottom: 8vh;
+        color: #222222; /* darker clock */
     }
     #countdown-text {
         font-size: 8vw;
-        font-weight: 700;      /* thicker countdown */
+        font-weight: 700;
         margin-bottom: 8vh;
+        /* inherits #444 */
     }
     #display-note {
         font-size: 5vw;
-        font-weight: 600;      /* thicker note text */
+        font-weight: 600;
         max-width: 90%;
         padding: 0 10px;
         white-space: pre-wrap;
+        /* inherits #444 */
     }
     .red-flash {
-        /* very dark red for subtle alert */
         color: #331111 !important;
     }
     .note-extra::before {
