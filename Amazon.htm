@@ -12,7 +12,7 @@
         background-color: black;
     }
     body {
-        color: #444444; /* timers + notes */
+        color: #444444; /* notes default */
         font-family: 'Lucida Console', monospace;
         text-align: center;
         display: flex;
@@ -28,9 +28,10 @@
         color: #222222; /* darker clock */
     }
     #countdown-text {
-        font-size: 10vw;
+        font-size: 12vw;   /* 20% bigger than 10vw */
         font-weight: 700;
         margin-bottom: 8vh;
+        color: #222222;    /* darker timer */
     }
     #display-note {
         font-size: 6vw;
@@ -38,6 +39,7 @@
         max-width: 90%;
         padding: 0 10px;
         white-space: pre-wrap;
+        /* stays #444 */
     }
     .red-flash {
         color: #331111 !important;
@@ -128,9 +130,7 @@
         return date;
     }
 
-    // New formatting:
-    // - >= 1:40:00 (6000s): H:MM:SS
-    // -  < 1:40:00:        totalMinutes:SS (e.g., 99:59)
+    // >= 1:40:00 -> H:MM:SS, otherwise totalMinutes:SS
     function formatCountdown(ms) {
         const totalSeconds = Math.floor(ms / 1000);
         const hours = Math.floor(totalSeconds / 3600);
