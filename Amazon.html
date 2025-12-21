@@ -28,7 +28,7 @@
         color: #222222; /* darker clock */
     }
     #countdown-text {
-        font-size: 10vw;   /* whole number size */
+        font-size: 10vw;
         font-weight: 700;
         margin-bottom: 8vh;
     }
@@ -128,16 +128,20 @@
         return date;
     }
 
+    // New formatting:
+    // - >= 1:40:00 (6000s): H:MM:SS
+    // -  < 1:40:00:        totalMinutes:SS (e.g., 99:59)
     function formatCountdown(ms) {
         const totalSeconds = Math.floor(ms / 1000);
         const hours = Math.floor(totalSeconds / 3600);
         const minutes = Math.floor((totalSeconds % 3600) / 60);
         const seconds = totalSeconds % 60;
 
-        if (hours > 0) {
+        if (totalSeconds >= 6000) { // 1h 40m
             return `${hours}:${pad(minutes)}:${pad(seconds)}`;
         } else {
-            return `${minutes}:${pad(seconds)}`;
+            const totalMinutes = Math.floor(totalSeconds / 60);
+            return `${totalMinutes}:${pad(seconds)}`;
         }
     }
 
